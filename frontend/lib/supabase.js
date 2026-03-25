@@ -1,16 +1,3 @@
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-if (!supabaseUrl) {
-  throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL environment variable')
-}
-
-if (!supabaseAnonKey) {
-  throw new Error('Missing NEXT_PUBLIC_SUPABASE_ANON_KEY environment variable')
-}
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
-
-export default supabase
+// Utilise lib/supabase/client.js pour les composants "use client"
+// Utilise lib/supabase/server.js pour les Server Components
+export { createClient } from "./supabase/client";
