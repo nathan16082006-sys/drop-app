@@ -1,14 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-
-const CATEGORY_COLORS = {
-  Mode:         "#a259ff",
-  Beauté:       "#e91e8c",
-  Tech:         "#6c63ff",
-  Sport:        "#00d4aa",
-  Lifestyle:    "#c8f135",
-  Alimentaire:  "#f5a623",
-  Autre:        "#ffffff",
-};
+import CampaignCard from "@/components/CampaignCard";
 
 async function getCampaigns() {
   const supabase = createClient(
@@ -32,7 +23,6 @@ export default async function CreatorOffers() {
 
   return (
     <div>
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-1" style={{ fontFamily: "var(--font-syne)" }}>
           Feed des offres
@@ -42,7 +32,6 @@ export default async function CreatorOffers() {
         </p>
       </div>
 
-      {/* Filters */}
       <div className="flex gap-2 mb-6 flex-wrap">
         {["Toutes", "Mode", "Beauté", "Tech", "Sport", "Lifestyle", "Alimentaire"].map((f) => (
           <button
@@ -58,7 +47,6 @@ export default async function CreatorOffers() {
         ))}
       </div>
 
-      {/* Grid */}
       {campaigns.length === 0 ? (
         <div
           className="flex items-center justify-center h-48 rounded-2xl border text-sm"
@@ -68,49 +56,9 @@ export default async function CreatorOffers() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-          {campaigns.map((campaign) => {
-            const color = CATEGORY_COLORS[campaign.category] ?? "#ffffff";
-            return (
-              <div
-                key={campaign.id}
-                className="flex flex-col gap-4 p-5 rounded-2xl border transition-colors hover:border-white/20"
-                style={{ backgroundColor: "#111113", borderColor: "rgba(255,255,255,0.07)" }}
-              >
-                {/* Avatar + commission */}
-                <div className="flex items-center justify-between">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold"
-                    style={{ backgroundColor: `${color}22`, color }}
-                  >
-                    {campaign.name.slice(0, 2).toUpperCase()}
-                  </div>
-                  <span
-                    className="text-xs px-2.5 py-1 rounded-full font-semibold"
-                    style={{ backgroundColor: "#c8f13520", color: "#c8f135" }}
-                  >
-                    {campaign.commission_percent}%
-                  </span>
-                </div>
-
-                <div>
-                  <p className="font-semibold text-white mb-1">{campaign.name}</p>
-                  <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.4)" }}>
-                    {campaign.category}
-                  </p>
-                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
-                    {campaign.description}
-                  </p>
-                </div>
-
-                <button
-                  className="mt-auto w-full py-2.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90"
-                  style={{ backgroundColor: "#c8f135", color: "#0a0a0b" }}
-                >
-                  Obtenir mon code
-                </button>
-              </div>
-            );
-          })}
+          {campaigns.map((campaign) => (
+            <CampaignCard key={campaign.id} campaign={campaign} />
+          ))}
         </div>
       )}
     </div>
