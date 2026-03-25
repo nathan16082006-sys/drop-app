@@ -1,4 +1,24 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 export default function ShopifyConnect() {
+  const [shop, setShop] = useState("");
+  const [error, setError] = useState(null);
+  const router = useRouter();
+
+  function handleConnect(e) {
+    e.preventDefault();
+    const raw = shop.trim().replace(/^https?:\/\//, "").replace(/\/$/, "");
+    if (!raw.endsWith(".myshopify.com")) {
+      setError("L'URL doit se terminer par .myshopify.com");
+      return;
+    }
+    setError(null);
+    router.push(`/api/shopify/auth?shop=${encodeURIComponent(raw)}`);
+  }
+
   return (
     <div className="max-w-lg">
       <div className="mb-8">
@@ -36,41 +56,51 @@ export default function ShopifyConnect() {
       </div>
 
       {/* Connect form */}
-      <div
-        className="p-6 rounded-2xl border mb-6"
+      <form
+        onSubmit={handleConnect}
+        className="p-6 rounded-2xl border mb-6 flex flex-col gap-4"
         style={{ backgroundColor: "#111113", borderColor: "rgba(255,255,255,0.07)" }}
       >
-        <h2 className="text-sm font-semibold mb-5" style={{ fontFamily: "var(--font-syne)", color: "rgba(255,255,255,0.6)" }}>
+        <h2 className="text-sm font-semibold" style={{ fontFamily: "var(--font-syne)", color: "rgba(255,255,255,0.6)" }}>
           Connecter ma boutique
         </h2>
-        <div className="flex flex-col gap-4">
-          <div>
-            <label className="block text-xs mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>
-              URL de ta boutique Shopify
-            </label>
-            <div className="flex items-center border rounded-xl overflow-hidden" style={{ borderColor: "rgba(255,255,255,0.1)" }}>
-              <span
-                className="px-4 py-3 text-sm border-r"
-                style={{ color: "rgba(255,255,255,0.3)", borderColor: "rgba(255,255,255,0.08)", backgroundColor: "rgba(255,255,255,0.03)" }}
-              >
-                https://
-              </span>
-              <input
-                type="text"
-                placeholder="ma-boutique.myshopify.com"
-                className="flex-1 px-4 py-3 text-sm outline-none bg-transparent"
-                style={{ color: "rgba(255,255,255,0.8)" }}
-              />
-            </div>
-          </div>
-          <button
-            className="w-full py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90"
-            style={{ backgroundColor: "#6c63ff", color: "#ffffff" }}
+
+        <div>
+          <label className="block text-xs mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>
+            URL de ta boutique Shopify
+          </label>
+          <div
+            className="flex items-center border rounded-xl overflow-hidden"
+            style={{ borderColor: error ? "rgba(255,80,80,0.5)" : "rgba(255,255,255,0.1)" }}
           >
-            Connecter via Shopify OAuth
-          </button>
+            <span
+              className="px-4 py-3 text-sm border-r shrink-0"
+              style={{ color: "rgba(255,255,255,0.3)", borderColor: "rgba(255,255,255,0.08)", backgroundColor: "rgba(255,255,255,0.03)" }}
+            >
+              https://
+            </span>
+            <input
+              type="text"
+              value={shop}
+              onChange={(e) => { setShop(e.target.value); setError(null); }}
+              placeholder="ma-boutique.myshopify.com"
+              className="flex-1 px-4 py-3 text-sm outline-none bg-transparent"
+              style={{ color: "rgba(255,255,255,0.8)" }}
+            />
+          </div>
+          {error && (
+            <p className="text-xs mt-2" style={{ color: "#ff8080" }}>{error}</p>
+          )}
         </div>
-      </div>
+
+        <button
+          type="submit"
+          className="w-full py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90"
+          style={{ backgroundColor: "#6c63ff", color: "#ffffff" }}
+        >
+          Connecter via Shopify OAuth
+        </button>
+      </form>
 
       {/* What it does */}
       <div
@@ -88,10 +118,7 @@ export default function ShopifyConnect() {
             "Générer les factures créateurs",
           ].map((item) => (
             <li key={item} className="flex items-center gap-3 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
-              <span
-                className="w-1.5 h-1.5 rounded-full shrink-0"
-                style={{ backgroundColor: "#6c63ff" }}
-              />
+              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#6c63ff" }} />
               {item}
             </li>
           ))}
