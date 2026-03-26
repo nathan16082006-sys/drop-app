@@ -1,11 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
+import { env } from "@/lib/env";
 import CampaignCard from "@/components/CampaignCard";
 
 async function getCampaigns() {
-  const supabase = createClient(
-    "https://ahljkhrldzgsyseonclz.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFobGpraHJsZHpnc3lzZW9uY2x6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzOTc1MzksImV4cCI6MjA4OTk3MzUzOX0.OLFjuilsBMLsxGaiPIRdqEqy-EFB4epfH42rGqNMvNQ"
-  );
+  const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
   const { data, error } = await supabase
     .from("campaigns")
     .select("id, name, category, description, commission_percent")

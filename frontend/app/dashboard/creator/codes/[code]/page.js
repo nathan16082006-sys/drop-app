@@ -1,12 +1,10 @@
 import { createClient } from "@supabase/supabase-js";
+import { env } from "@/lib/env";
 import CopyButton from "@/components/CopyButton";
 import Link from "next/link";
 
 async function getPromoCode(codeString) {
-  const supabase = createClient(
-    "https://ahljkhrldzgsyseonclz.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFobGpraHJsZHpnc3lzZW9uY2x6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzOTc1MzksImV4cCI6MjA4OTk3MzUzOX0.OLFjuilsBMLsxGaiPIRdqEqy-EFB4epfH42rGqNMvNQ"
-  );
+  const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
   const { data, error } = await supabase
     .from("promo_codes")
     .select("code_string, status, created_at, campaigns(name, category, commission_percent)")
