@@ -29,6 +29,8 @@ export async function GET(request) {
   installUrl.searchParams.set("redirect_uri", redirectUri);
   installUrl.searchParams.set("state", state);
 
+  console.log("OAuth URL:", installUrl.toString());
+
   const response = NextResponse.redirect(installUrl.toString());
 
   response.cookies.set("shopify_oauth_state", state, {

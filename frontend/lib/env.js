@@ -13,9 +13,17 @@ export const env = {
   // App
   get APP_URL()             { return get("APP_URL", "http://localhost:3000"); },
 
-  // Supabase (publiques — disponibles client + serveur)
-  get SUPABASE_URL()        { return get("NEXT_PUBLIC_SUPABASE_URL"); },
-  get SUPABASE_ANON_KEY()   { return get("NEXT_PUBLIC_SUPABASE_ANON_KEY"); },
+  // Supabase (publiques — accès statique obligatoire pour que Next.js inline les NEXT_PUBLIC_)
+  get SUPABASE_URL() {
+    const v = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    if (!v) throw new Error('[env] Variable manquante : "NEXT_PUBLIC_SUPABASE_URL"\n→ Vérifie frontend/.env.local et redémarre le serveur.');
+    return v;
+  },
+  get SUPABASE_ANON_KEY() {
+    const v = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!v) throw new Error('[env] Variable manquante : "NEXT_PUBLIC_SUPABASE_ANON_KEY"\n→ Vérifie frontend/.env.local et redémarre le serveur.');
+    return v;
+  },
 
   // Shopify (serveur uniquement — ne pas importer dans un "use client")
   get SHOPIFY_CLIENT_ID()     { return get("SHOPIFY_CLIENT_ID"); },

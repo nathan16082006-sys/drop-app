@@ -2,7 +2,6 @@
 
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 import { useState } from "react";
 
 const CATEGORY_COLORS = {
@@ -19,58 +18,35 @@ export default function CampaignCard({ campaign }) {
   const { user } = useUser();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   async function handleGetCode() {
     if (!user || loading) return;
     setLoading(true);
+    setError(null);
 
-    const supabase = createClient();
-
-    // Si le créateur a déjà un code pour cette campagne, on le redirige directement
-    const { data: existing } = await supabase
-      .from("promo_codes")
-      .select("code_string")
-      .eq("campaign_id", campaign.id)
-      .eq("creator_id", user.id)
-      .maybeSingle();
-
-    if (existing) {
-      router.push(`/dashboard/creator/codes/${existing.code_string}`);
-      return;
-    }
-
-    // Génère le code : initiales (4 chars max) + commission
+    // Génère le code côté client uniquement pour l'affichage du label
     const firstName = (user.firstName || user.username || "USER")
       .toUpperCase()
       .replace(/[^A-Z]/g, "")
       .slice(0, 4);
-    const baseCode = `${firstName}${campaign.commission_percent}`;
+    const code_string = `${firstName}${campaign.commission_percent}`;
 
-    // Vérifie l'unicité, ajoute un suffix si collision
-    let code = baseCode;
-    const { data: collision } = await supabase
-      .from("promo_codes")
-      .select("id")
-      .eq("code_string", code)
-      .maybeSingle();
-
-    if (collision) {
-      code = `${baseCode}${Math.floor(10 + Math.random() * 90)}`;
-    }
-
-    const { error } = await supabase.from("promo_codes").insert({
-      campaign_id: campaign.id,
-      creator_id: user.id,
-      code_string: code,
-      status: "active",
+    const res = await fetch("/api/creator/generate-code", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ campaign_id: campaign.id, code_string }),
     });
 
-    if (!error) {
-      router.push(`/dashboard/creator/codes/${code}`);
-    } else {
-      console.error("Erreur création code :", error.message);
+    const data = await res.json();
+
+    if (!res.ok) {
+      setError(data.error ?? "Une erreur est survenue.");
       setLoading(false);
+      return;
     }
+
+    router.push(`/dashboard/creator/codes/${data.code_string}`);
   }
 
   const color = CATEGORY_COLORS[campaign.category] ?? "#ffffff";
@@ -104,6 +80,10 @@ export default function CampaignCard({ campaign }) {
           {campaign.description}
         </p>
       </div>
+
+      {error && (
+        <p className="text-xs" style={{ color: "#ff8080" }}>{error}</p>
+      )}
 
       <button
         onClick={handleGetCode}
