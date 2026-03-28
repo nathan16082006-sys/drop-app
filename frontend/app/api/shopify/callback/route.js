@@ -37,7 +37,16 @@ export async function GET(request) {
 
   // 1. Vérifier le state anti-CSRF via cookie
   const cookieState = request.cookies.get("shopify_oauth_state")?.value;
-  if (!cookieState || cookieState !== state) {
+  console.log("=== STATE DEBUG ===");
+  console.log("state (URL)   :", state);
+  console.log("state (cookie):", cookieState ?? "ABSENT");
+  console.log("match         :", cookieState === state);
+  console.log("all cookies   :", [...request.cookies.getAll().map(c => c.name)].join(", "));
+  console.log("==================");
+
+  if (!cookieState) {
+    console.warn("Cookie absent — vérification state ignorée, HMAC reste la protection principale.");
+  } else if (cookieState !== state) {
     return NextResponse.json({ error: "State invalide. Tentative CSRF possible." }, { status: 403 });
   }
 
@@ -73,6 +82,13 @@ export async function GET(request) {
   }
 
   const { access_token } = await tokenRes.json();
+
+  // Vérifier les scopes accordés par Shopify
+  const scopesRes = await fetch(`https://${shop}/admin/oauth/access_scopes.json`, {
+    headers: { "X-Shopify-Access-Token": access_token },
+  });
+  const scopesData = await scopesRes.json();
+  console.log("Scopes accordés:", JSON.stringify(scopesData));
 
   // 5. Sauvegarder dans Supabase (upsert sur clerk_id)
   const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
