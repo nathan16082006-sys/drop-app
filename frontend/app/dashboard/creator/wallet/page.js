@@ -26,7 +26,6 @@ function WalletContent() {
 
   return (
     <div>
-      <p style={{color: 'red', fontSize: '24px'}}>VERSION NOUVELLE</p>
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-1" style={{ fontFamily: "var(--font-syne)" }}>
