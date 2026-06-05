@@ -17,33 +17,26 @@ body {
   color: #ffffff;
 }
 
-@keyframes wave-left {
-  0%   { transform: translate(0, 0) scale(1); }
-  20%  { transform: translate(25px, -20px) scale(1.04); }
-  45%  { transform: translate(-30px, 35px) scale(0.96); }
-  70%  { transform: translate(20px, 20px) scale(1.03); }
-  100% { transform: translate(0, 0) scale(1); }
+@keyframes wave-pink {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(25px, -40px); }
 }
 
-@keyframes wave-right {
-  0%   { transform: translate(0, 0) scale(1); }
-  25%  { transform: translate(-30px, 20px) scale(1.05); }
-  50%  { transform: translate(20px, -35px) scale(0.95); }
-  75%  { transform: translate(-20px, 25px) scale(1.04); }
-  100% { transform: translate(0, 0) scale(1); }
+@keyframes wave-lime {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-30px, 20px); }
 }
 
-.wave-left {
-  animation: wave-left 45s ease-in-out infinite;
+.wave-pink {
+  animation: wave-pink 45s ease-in-out alternate infinite;
 }
 
-.wave-right {
-  animation: wave-right 60s ease-in-out infinite;
+.wave-lime {
+  animation: wave-lime 60s ease-in-out alternate infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wave-left,
-  .wave-right {
-    animation: none;
+  * {
+    animation-duration: 0.01ms !important;
   }
 }
