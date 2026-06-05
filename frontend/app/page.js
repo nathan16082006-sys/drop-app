@@ -3,22 +3,6 @@ import { Shield, Zap, Users } from "lucide-react";
 export default function Home() {
   return (
     <>
-      <style>{`
-        @keyframes wave-line-pink {
-          from { transform: translate(-15px, 20px); }
-          to   { transform: translate(15px, -20px); }
-        }
-        @keyframes wave-line-lime {
-          from { transform: translate(15px, -20px); }
-          to   { transform: translate(-15px, 20px); }
-        }
-        .wave-line-pink {
-          animation: wave-line-pink 50s ease-in-out alternate infinite;
-        }
-        .wave-line-lime {
-          animation: wave-line-lime 65s ease-in-out alternate infinite;
-        }
-      `}</style>
       {/* Fixed Nav */}
       <nav
         style={{
@@ -188,101 +172,32 @@ export default function Home() {
           }}
         />
 
-        {/* SVG sinuous lines overlay */}
+        {/* Dot grid texture */}
         <svg
           style={{
             position: "absolute",
-            top: 0,
-            left: 0,
+            inset: 0,
             width: "100%",
             height: "100%",
             pointerEvents: "none",
             zIndex: 1,
-            overflow: "visible",
+            overflow: "hidden",
           }}
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
           aria-hidden="true"
         >
           <defs>
-            <filter id="glow-pink" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="6" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-            <filter id="glow-lime" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="6" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
+            <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="white" opacity="0.07" />
+            </pattern>
           </defs>
-
-          {/* Pink sinuous ribbon — bottom-left to center */}
-          <g className="wave-line-pink">
-            <path
-              d="M -10 90 C 20 60, 30 30, 45 55 S 35 75, 50 40"
-              stroke="#EC4899"
-              strokeWidth="0.3"
-              fill="none"
-              opacity="1"
-              filter="url(#glow-pink)"
-            />
-            <path
-              d="M -10 90 C 20 60, 30 30, 45 55 S 35 75, 50 40"
-              stroke="#EC4899"
-              strokeWidth="1.6"
-              fill="none"
-              opacity="0.4"
-              filter="url(#glow-pink)"
-            />
-            <path
-              d="M -10 90 C 20 60, 30 30, 45 55 S 35 75, 50 40"
-              stroke="#EC4899"
-              strokeWidth="4"
-              fill="none"
-              opacity="0.15"
-              filter="url(#glow-pink)"
-            />
-          </g>
-
-          {/* Lime sinuous ribbon — top-right to center */}
-          <g className="wave-line-lime">
-            <path
-              d="M 110 10 C 80 30, 70 60, 55 35 S 65 15, 50 60"
-              stroke="#c8f135"
-              strokeWidth="0.3"
-              fill="none"
-              opacity="1"
-              filter="url(#glow-lime)"
-            />
-            <path
-              d="M 110 10 C 80 30, 70 60, 55 35 S 65 15, 50 60"
-              stroke="#c8f135"
-              strokeWidth="1.6"
-              fill="none"
-              opacity="0.4"
-              filter="url(#glow-lime)"
-            />
-            <path
-              d="M 110 10 C 80 30, 70 60, 55 35 S 65 15, 50 60"
-              stroke="#c8f135"
-              strokeWidth="4"
-              fill="none"
-              opacity="0.15"
-              filter="url(#glow-lime)"
-            />
-          </g>
+          <rect width="100%" height="100%" fill="url(#dots)" />
         </svg>
 
         {/* Hero content */}
         <div
           style={{
             position: "relative",
-            zIndex: 1,
+            zIndex: 2,
             textAlign: "center",
             padding: "0 1.5rem",
             maxWidth: "820px",
@@ -432,7 +347,7 @@ export default function Home() {
             borderTop: "1px solid rgba(255,255,255,0.06)",
             background: "rgba(10,10,11,0.6)",
             backdropFilter: "blur(10px)",
-            zIndex: 1,
+            zIndex: 2,
             flexWrap: "wrap",
           }}
         >
