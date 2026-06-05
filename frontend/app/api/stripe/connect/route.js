@@ -39,9 +39,10 @@ export async function POST() {
     // 3. Sauvegarder dans Supabase
     const { error: updateError } = await supabase
       .from("users")
-      .update({ stripe_account_id: accountId })
-      .eq("clerk_id", userId);
-
+      .upsert(
+        { clerk_id: userId, stripe_account_id: accountId, type: "creator" },
+        { onConflict: "clerk_id" }
+      );
     if (updateError) {
       return NextResponse.json({ error: "Erreur sauvegarde compte Stripe." }, { status: 500 });
     }

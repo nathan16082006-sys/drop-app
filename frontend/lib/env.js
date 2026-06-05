@@ -25,7 +25,8 @@ export const env = {
     return v;
   },
 
-  // Shopify (serveur uniquement — ne pas importer dans un "use client")
-  get SHOPIFY_CLIENT_ID()     { return get("SHOPIFY_CLIENT_ID"); },
-  get SHOPIFY_CLIENT_SECRET() { return get("SHOPIFY_CLIENT_SECRET"); },
+  // Stripe (serveur uniquement — ne pas importer dans un "use client")
+  get STRIPE_SECRET_KEY()      { return get("STRIPE_SECRET_KEY"); },
+  get STRIPE_WEBHOOK_SECRET()  { return get("STRIPE_WEBHOOK_SECRET"); },
+
 };
