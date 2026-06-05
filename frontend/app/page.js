@@ -136,105 +136,41 @@ export default function Home() {
           paddingBottom: "120px",
         }}
       >
-        {/* SVG Wave — left (pink/magenta) */}
-        <svg
+        {/* Wave — left (pink) */}
+        <div
+          className="wave-left"
           style={{
             position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
+            bottom: "8%",
+            left: "-6%",
+            width: "500px",
+            height: "380px",
+            background: "#EC4899",
+            filter: "blur(110px)",
+            opacity: 0.35,
+            borderRadius: "50%",
             pointerEvents: "none",
             zIndex: 0,
-            overflow: "visible",
           }}
-          viewBox="0 0 1440 900"
-          preserveAspectRatio="xMidYMid slice"
-          aria-hidden="true"
-        >
-          <defs>
-            <filter id="blur-pink-8" x="-100%" y="-100%" width="300%" height="300%">
-              <feGaussianBlur stdDeviation="8" />
-            </filter>
-            <filter id="blur-pink-20" x="-100%" y="-100%" width="300%" height="300%">
-              <feGaussianBlur stdDeviation="20" />
-            </filter>
-          </defs>
-          <g className="wave-pink">
-            <path
-              d="M -100 1000 C 20 820, -80 680, 80 540 C 200 430, 40 290, 160 80"
-              stroke="#EC4899"
-              strokeWidth="1.5"
-              fill="none"
-              opacity="0.9"
-            />
-            <path
-              d="M -100 1000 C 20 820, -80 680, 80 540 C 200 430, 40 290, 160 80"
-              stroke="#EC4899"
-              strokeWidth="6"
-              fill="none"
-              opacity="0.3"
-              filter="url(#blur-pink-8)"
-            />
-            <path
-              d="M -100 1000 C 20 820, -80 680, 80 540 C 200 430, 40 290, 160 80"
-              stroke="#EC4899"
-              strokeWidth="20"
-              fill="none"
-              opacity="0.1"
-              filter="url(#blur-pink-20)"
-            />
-          </g>
-        </svg>
+        />
 
-        {/* SVG Wave — right (lime) */}
-        <svg
+        {/* Wave — right (lime) */}
+        <div
+          className="wave-right"
           style={{
             position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
+            top: "4%",
+            right: "-6%",
+            width: "420px",
+            height: "500px",
+            background: "#c8f135",
+            filter: "blur(110px)",
+            opacity: 0.3,
+            borderRadius: "50%",
             pointerEvents: "none",
             zIndex: 0,
-            overflow: "visible",
           }}
-          viewBox="0 0 1440 900"
-          preserveAspectRatio="xMidYMid slice"
-          aria-hidden="true"
-        >
-          <defs>
-            <filter id="blur-lime-8" x="-100%" y="-100%" width="300%" height="300%">
-              <feGaussianBlur stdDeviation="8" />
-            </filter>
-            <filter id="blur-lime-20" x="-100%" y="-100%" width="300%" height="300%">
-              <feGaussianBlur stdDeviation="20" />
-            </filter>
-          </defs>
-          <g className="wave-lime">
-            <path
-              d="M 1540 -100 C 1400 80, 1500 220, 1340 380 C 1210 500, 1400 640, 1260 880"
-              stroke="#c8f135"
-              strokeWidth="1.5"
-              fill="none"
-              opacity="0.9"
-            />
-            <path
-              d="M 1540 -100 C 1400 80, 1500 220, 1340 380 C 1210 500, 1400 640, 1260 880"
-              stroke="#c8f135"
-              strokeWidth="6"
-              fill="none"
-              opacity="0.3"
-              filter="url(#blur-lime-8)"
-            />
-            <path
-              d="M 1540 -100 C 1400 80, 1500 220, 1340 380 C 1210 500, 1400 640, 1260 880"
-              stroke="#c8f135"
-              strokeWidth="20"
-              fill="none"
-              opacity="0.1"
-              filter="url(#blur-lime-20)"
-            />
-          </g>
-        </svg>
+        />
 
         {/* Hero content */}
         <div
