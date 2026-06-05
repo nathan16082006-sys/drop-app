@@ -3,6 +3,22 @@ import { Shield, Zap, Users } from "lucide-react";
 export default function Home() {
   return (
     <>
+      <style>{`
+        @keyframes wave-line-pink {
+          from { transform: translate(-15px, 20px); }
+          to   { transform: translate(15px, -20px); }
+        }
+        @keyframes wave-line-lime {
+          from { transform: translate(15px, -20px); }
+          to   { transform: translate(-15px, 20px); }
+        }
+        .wave-line-pink {
+          animation: wave-line-pink 50s ease-in-out alternate infinite;
+        }
+        .wave-line-lime {
+          animation: wave-line-lime 65s ease-in-out alternate infinite;
+        }
+      `}</style>
       {/* Fixed Nav */}
       <nav
         style={{
@@ -171,6 +187,96 @@ export default function Home() {
             zIndex: 0,
           }}
         />
+
+        {/* SVG sinuous lines overlay */}
+        <svg
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            pointerEvents: "none",
+            zIndex: 1,
+            overflow: "visible",
+          }}
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <defs>
+            <filter id="glow-pink" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="glow-lime" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Pink sinuous ribbon — bottom-left to center */}
+          <g className="wave-line-pink">
+            <path
+              d="M -10 90 C 20 60, 30 30, 45 55 S 35 75, 50 40"
+              stroke="#EC4899"
+              strokeWidth="0.3"
+              fill="none"
+              opacity="1"
+              filter="url(#glow-pink)"
+            />
+            <path
+              d="M -10 90 C 20 60, 30 30, 45 55 S 35 75, 50 40"
+              stroke="#EC4899"
+              strokeWidth="1.6"
+              fill="none"
+              opacity="0.4"
+              filter="url(#glow-pink)"
+            />
+            <path
+              d="M -10 90 C 20 60, 30 30, 45 55 S 35 75, 50 40"
+              stroke="#EC4899"
+              strokeWidth="4"
+              fill="none"
+              opacity="0.15"
+              filter="url(#glow-pink)"
+            />
+          </g>
+
+          {/* Lime sinuous ribbon — top-right to center */}
+          <g className="wave-line-lime">
+            <path
+              d="M 110 10 C 80 30, 70 60, 55 35 S 65 15, 50 60"
+              stroke="#c8f135"
+              strokeWidth="0.3"
+              fill="none"
+              opacity="1"
+              filter="url(#glow-lime)"
+            />
+            <path
+              d="M 110 10 C 80 30, 70 60, 55 35 S 65 15, 50 60"
+              stroke="#c8f135"
+              strokeWidth="1.6"
+              fill="none"
+              opacity="0.4"
+              filter="url(#glow-lime)"
+            />
+            <path
+              d="M 110 10 C 80 30, 70 60, 55 35 S 65 15, 50 60"
+              stroke="#c8f135"
+              strokeWidth="4"
+              fill="none"
+              opacity="0.15"
+              filter="url(#glow-lime)"
+            />
+          </g>
+        </svg>
 
         {/* Hero content */}
         <div
@@ -350,7 +456,7 @@ export default function Home() {
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <Zap size={20} color="#c8f135" strokeWidth={1.75} />
+            <Zap size={20} color="#EC4899" strokeWidth={1.75} />
             <div>
               <div
                 style={{ color: "#fff", fontSize: "0.875rem", fontWeight: 600 }}
