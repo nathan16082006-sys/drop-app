@@ -1,6 +1,3 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import { Shield, Zap, Users } from "lucide-react";
 
 const PARTICLES = [
@@ -22,43 +19,14 @@ const PARTICLES = [
 ];
 
 export default function Home() {
-  const [cursor, setCursor] = useState({ x: -500, y: -500 });
-
-  useEffect(() => {
-    const move = (e) => setCursor({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, []);
-
   return (
     <>
       <style>{`
-        .cursor-glow {
-          position: fixed;
-          pointer-events: none;
-          z-index: 9999;
-          width: 400px;
-          height: 400px;
-          border-radius: 50%;
-          background: radial-gradient(circle, rgba(200,241,53,0.06) 0%, transparent 70%);
-          transform: translate(-50%, -50%);
-          transition: left 0.1s ease, top 0.1s ease;
-        }
-        @media (max-width: 767px) {
-          .cursor-glow { display: none; }
-        }
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
           50%       { transform: translateY(-30px); }
         }
       `}</style>
-
-      {/* Cursor glow */}
-      <div
-        className="cursor-glow"
-        style={{ left: cursor.x, top: cursor.y }}
-        aria-hidden="true"
-      />
 
       {/* ── Navbar ─────────────────────────────────────────── */}
       <nav className="drop-nav">
