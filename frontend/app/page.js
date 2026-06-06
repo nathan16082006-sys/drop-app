@@ -3,408 +3,106 @@ import { Shield, Zap, Users } from "lucide-react";
 export default function Home() {
   return (
     <>
-      {/* Fixed Nav */}
-      <nav
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 50,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 2rem",
-          height: "64px",
-          background: "rgba(10,10,11,0.85)",
-          backdropFilter: "blur(14px)",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
-        }}
-      >
-        {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <span
-            style={{
-              fontSize: "1.4rem",
-              fontWeight: 800,
-              color: "#fff",
-              letterSpacing: "-0.03em",
-            }}
-          >
-            drop
-          </span>
-          <span
-            style={{
-              fontSize: "1.4rem",
-              fontWeight: 800,
-              color: "#c8f135",
-              lineHeight: 1,
-            }}
-          >
-            .
-          </span>
+      {/* ── Navbar ─────────────────────────────────────────── */}
+      <nav className="drop-nav">
+        <div className="drop-logo">
+          <span>drop</span>
+          <span className="drop-logo-dot">.</span>
         </div>
 
-        {/* Center links */}
-        <div
-          style={{
-            display: "flex",
-            gap: "2rem",
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
-        >
-          <a
-            href="/fonctionnalites"
-            style={{
-              color: "rgba(255,255,255,0.65)",
-              fontSize: "0.875rem",
-              textDecoration: "none",
-              transition: "color 0.2s",
-            }}
-          >
-            Fonctionnalités
-          </a>
-          <a
-            href="/comment-ca-marche"
-            style={{
-              color: "rgba(255,255,255,0.65)",
-              fontSize: "0.875rem",
-              textDecoration: "none",
-            }}
-          >
-            Comment ça marche
-          </a>
-          <a
-            href="/a-propos"
-            style={{
-              color: "rgba(255,255,255,0.65)",
-              fontSize: "0.875rem",
-              textDecoration: "none",
-            }}
-          >
-            À propos
-          </a>
+        <div className="drop-nav-links">
+          <a href="/fonctionnalites" className="nav-link">Fonctionnalités</a>
+          <a href="/comment-ca-marche" className="nav-link">Comment ça marche</a>
+          <a href="/a-propos" className="nav-link">À propos</a>
         </div>
 
-        {/* Right buttons */}
-        <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
-          <a
-            href="/sign-in"
-            style={{
-              padding: "0.5rem 1.25rem",
-              borderRadius: "999px",
-              border: "1px solid rgba(255,255,255,0.25)",
-              color: "#fff",
-              fontSize: "0.875rem",
-              fontWeight: 500,
-              textDecoration: "none",
-            }}
-          >
-            Se connecter
-          </a>
-          <a
-            href="/sign-up"
-            style={{
-              padding: "0.5rem 1.25rem",
-              borderRadius: "999px",
-              backgroundColor: "#c8f135",
-              color: "#0a0a0b",
-              fontSize: "0.875rem",
-              fontWeight: 700,
-              textDecoration: "none",
-            }}
-          >
-            Créer un compte
-          </a>
+        <div className="drop-nav-actions">
+          <a href="/sign-in" className="btn-nav-signin">Se connecter</a>
+          <a href="/sign-up" className="btn-nav-signup">Créer un compte</a>
         </div>
       </nav>
 
-      {/* Hero */}
-      <main
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "relative",
-          overflow: "hidden",
-          backgroundColor: "#0a0a0b",
-          paddingTop: "64px",
-          paddingBottom: "120px",
-        }}
-      >
-        {/* Wave — left (pink) */}
-        <div
-          className="wave-left"
-          style={{
-            position: "absolute",
-            bottom: "8%",
-            left: "-6%",
-            width: "500px",
-            height: "380px",
-            background: "#EC4899",
-            filter: "blur(110px)",
-            opacity: 0.35,
-            borderRadius: "50%",
-            pointerEvents: "none",
-            zIndex: 0,
-          }}
-        />
+      {/* ── Hero ───────────────────────────────────────────── */}
+      <main className="drop-hero">
 
-        {/* Wave — right (lime) */}
-        <div
-          className="wave-right"
-          style={{
-            position: "absolute",
-            top: "4%",
-            right: "-6%",
-            width: "420px",
-            height: "500px",
-            background: "#c8f135",
-            filter: "blur(110px)",
-            opacity: 0.3,
-            borderRadius: "50%",
-            pointerEvents: "none",
-            zIndex: 0,
-          }}
-        />
+        {/* Gradient mesh — 5 organic layers fused via mix-blend-mode */}
+        <div className="mesh mesh-1" aria-hidden="true" />
+        <div className="mesh mesh-2" aria-hidden="true" />
+        <div className="mesh mesh-3" aria-hidden="true" />
+        <div className="mesh mesh-4" aria-hidden="true" />
+        <div className="mesh mesh-5" aria-hidden="true" />
 
-        {/* Dot grid texture */}
-        <svg
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            pointerEvents: "none",
-            zIndex: 1,
-            overflow: "hidden",
-          }}
-          aria-hidden="true"
-        >
+        {/* SVG grain texture overlay */}
+        <svg className="drop-grain" aria-hidden="true">
           <defs>
-            <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r="1" fill="white" opacity="0.07" />
-            </pattern>
+            <filter id="grain">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.65"
+                numOctaves="3"
+                stitchTiles="stitch"
+              />
+              <feColorMatrix type="saturate" values="0" />
+            </filter>
           </defs>
-          <rect width="100%" height="100%" fill="url(#dots)" />
+          <rect width="100%" height="100%" filter="url(#grain)" />
         </svg>
 
-        {/* Hero content */}
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-            textAlign: "center",
-            padding: "0 1.5rem",
-            maxWidth: "820px",
-            width: "100%",
-          }}
-        >
-          {/* Badge pill */}
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              padding: "0.375rem 1rem",
-              borderRadius: "999px",
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.1)",
-              marginBottom: "2rem",
-            }}
-          >
-            <span style={{ color: "#c8f135", fontSize: "0.55rem" }}>●</span>
-            <span
-              style={{
-                color: "rgba(255,255,255,0.65)",
-                fontSize: "0.68rem",
-                fontWeight: 600,
-                letterSpacing: "0.15em",
-              }}
-            >
-              LA COLLABORATION RÉINVENTÉE
-            </span>
+        {/* Hero content — staggered fadeUp */}
+        <div className="drop-hero-content">
+          <div className="hero-badge">
+            <span className="hero-badge-dot">●</span>
+            <span className="hero-badge-text">LA COLLABORATION RÉINVENTÉE</span>
           </div>
 
-          {/* H1 */}
-          <h1
-            style={{
-              fontSize: "clamp(2.75rem, 7vw, 5.25rem)",
-              fontWeight: 800,
-              lineHeight: 1.08,
-              marginBottom: "1.5rem",
-              letterSpacing: "-0.035em",
-            }}
-          >
-            <span style={{ display: "block", color: "#fff" }}>
-              Gagne à chaque
-            </span>
-            <span
-              style={{
-                display: "block",
-                background: "linear-gradient(90deg, #EC4899, #c8f135)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              partage.
-            </span>
+          <h1 className="drop-h1">
+            <span className="hero-title-1">Gagne à chaque</span>
+            <span className="hero-title-2">partage.</span>
           </h1>
 
-          {/* Subtitle */}
-          <p
-            style={{
-              color: "rgba(255,255,255,0.5)",
-              fontSize: "clamp(1rem, 2.2vw, 1.2rem)",
-              maxWidth: "540px",
-              margin: "0 auto 2.5rem",
-              lineHeight: 1.65,
-            }}
-          >
+          <p className="hero-subtitle">
             Drop connecte les créateurs et les marques pour des partenariats
             authentiques et performants.
           </p>
 
-          {/* CTA buttons */}
-          <div
-            style={{
-              display: "flex",
-              gap: "1rem",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              marginBottom: "1.5rem",
-            }}
-          >
-            <a
-              href="/sign-up?role=creator"
-              style={{
-                padding: "0.9rem 2rem",
-                borderRadius: "999px",
-                backgroundColor: "#c8f135",
-                color: "#0a0a0b",
-                fontWeight: 700,
-                fontSize: "1rem",
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.3rem",
-              }}
-            >
+          <div className="hero-buttons">
+            <a href="/sign-up?role=creator" className="btn-creator">
               Je suis créateur ↗
             </a>
-            <a
-              href="/sign-up?role=brand"
-              style={{
-                padding: "0.9rem 2rem",
-                borderRadius: "999px",
-                backgroundColor: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.2)",
-                color: "#fff",
-                fontWeight: 600,
-                fontSize: "1rem",
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.3rem",
-              }}
-            >
+            <a href="/sign-up?role=brand" className="btn-brand">
               Je suis une marque ↗
             </a>
           </div>
 
-          {/* Sign-in link */}
-          <p style={{ color: "rgba(255,255,255,0.38)", fontSize: "0.875rem" }}>
+          <p className="hero-signin">
             Déjà un compte ?{" "}
-            <a
-              href="/sign-in"
-              style={{
-                color: "rgba(255,255,255,0.6)",
-                textDecoration: "underline",
-                textUnderlineOffset: "3px",
-              }}
-            >
-              Se connecter
-            </a>
+            <a href="/sign-in" className="signin-link">Se connecter</a>
           </p>
         </div>
 
         {/* Trust badges strip */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            display: "flex",
-            justifyContent: "center",
-            gap: "3rem",
-            padding: "1.25rem 2rem",
-            borderTop: "1px solid rgba(255,255,255,0.06)",
-            background: "rgba(10,10,11,0.6)",
-            backdropFilter: "blur(10px)",
-            zIndex: 2,
-            flexWrap: "wrap",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+        <div className="drop-trust">
+          <div className="trust-badge">
             <Shield size={20} color="#c8f135" strokeWidth={1.75} />
             <div>
-              <div
-                style={{ color: "#fff", fontSize: "0.875rem", fontWeight: 600 }}
-              >
-                Partenariats vérifiés
-              </div>
-              <div
-                style={{
-                  color: "rgba(255,255,255,0.4)",
-                  fontSize: "0.75rem",
-                }}
-              >
-                Des collaborations de confiance
-              </div>
+              <div className="trust-title">Partenariats vérifiés</div>
+              <div className="trust-sub">Des collaborations de confiance</div>
             </div>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          <div className="trust-badge">
             <Zap size={20} color="#EC4899" strokeWidth={1.75} />
             <div>
-              <div
-                style={{ color: "#fff", fontSize: "0.875rem", fontWeight: 600 }}
-              >
-                Paiements sécurisés
-              </div>
-              <div
-                style={{
-                  color: "rgba(255,255,255,0.4)",
-                  fontSize: "0.75rem",
-                }}
-              >
-                Rapides et transparents
-              </div>
+              <div className="trust-title">Paiements sécurisés</div>
+              <div className="trust-sub">Rapides et transparents</div>
             </div>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          <div className="trust-badge">
             <Users size={20} color="#c8f135" strokeWidth={1.75} />
             <div>
-              <div
-                style={{ color: "#fff", fontSize: "0.875rem", fontWeight: 600 }}
-              >
-                Communauté engagée
-              </div>
-              <div
-                style={{
-                  color: "rgba(255,255,255,0.4)",
-                  fontSize: "0.75rem",
-                }}
-              >
-                Des créateurs passionnés
-              </div>
+              <div className="trust-title">Communauté engagée</div>
+              <div className="trust-sub">Des créateurs passionnés</div>
             </div>
           </div>
         </div>
