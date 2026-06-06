@@ -89,10 +89,10 @@ export default function Sidebar({ role }) {
     >
       {/* Logo */}
       <div className="flex items-center px-2 mb-8">
-        <span className="text-2xl font-bold" style={{ fontFamily: "var(--font-syne)" }}>
+        <span style={{ fontFamily: "var(--font-syne)", fontWeight: 800, fontSize: "1.5rem", color: "#fff" }}>
           drop
         </span>
-        <span className="text-2xl font-bold" style={{ color: accent, fontFamily: "var(--font-syne)" }}>
+        <span style={{ fontFamily: "var(--font-syne)", fontWeight: 800, fontSize: "1.5rem", color: "#c8f135" }}>
           .
         </span>
       </div>
