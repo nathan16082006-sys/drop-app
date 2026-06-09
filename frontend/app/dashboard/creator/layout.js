@@ -86,10 +86,70 @@ export default async function CreatorLayout({ children }) {
               height: 360,
               background:
                 "radial-gradient(ellipse at 55% 55%, #c8f135 0%, transparent 62%)",
-              opacity: 0.22,
+              opacity: 0.30,
               borderRadius: "42% 58% 55% 45% / 48% 52% 48% 52%",
               filter: "blur(50px)",
               animation: "feedMesh2 65s ease-in-out infinite alternate",
+            }}
+          />
+          {/* Blob lime bas-droite */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: -80,
+              right: -60,
+              width: 420,
+              height: 360,
+              background: "radial-gradient(ellipse at 50% 50%, #c8f135 0%, transparent 65%)",
+              opacity: 0.14,
+              borderRadius: "50%",
+              filter: "blur(55px)",
+              pointerEvents: "none",
+            }}
+          />
+          {/* Blob rose milieu-gauche */}
+          <div
+            style={{
+              position: "absolute",
+              top: "38%",
+              left: -100,
+              width: 320,
+              height: 380,
+              background: "radial-gradient(ellipse at 50% 50%, #EC4899 0%, transparent 60%)",
+              opacity: 0.11,
+              borderRadius: "50%",
+              filter: "blur(50px)",
+              pointerEvents: "none",
+            }}
+          />
+          {/* Blob lime haut-centre */}
+          <div
+            style={{
+              position: "absolute",
+              top: -60,
+              left: "30%",
+              width: 260,
+              height: 220,
+              background: "radial-gradient(ellipse at 50% 50%, #c8f135 0%, transparent 62%)",
+              opacity: 0.09,
+              borderRadius: "50%",
+              filter: "blur(60px)",
+              pointerEvents: "none",
+            }}
+          />
+          {/* Blob rose bas-gauche */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: "10%",
+              left: -60,
+              width: 280,
+              height: 300,
+              background: "radial-gradient(ellipse at 50% 50%, #EC4899 0%, transparent 60%)",
+              opacity: 0.10,
+              borderRadius: "50%",
+              filter: "blur(45px)",
+              pointerEvents: "none",
             }}
           />
         </div>
