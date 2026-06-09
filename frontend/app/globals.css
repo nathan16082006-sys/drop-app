@@ -407,6 +407,16 @@ body {
   to   { transform: translate(-14px, 12px) scale(0.96); }
 }
 
+@keyframes feedMesh5 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(14px, -18px) scale(1.03); }
+}
+
+@keyframes feedMesh6 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-16px, 20px) scale(0.97); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .feed-mesh-pink,
   .feed-mesh-lime {
