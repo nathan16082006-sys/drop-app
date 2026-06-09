@@ -20,7 +20,9 @@ function useReducedMotion() {
 
 function CampaignModal({ campaign, onClose }) {
   useEffect(() => {
-    const handleKey = (e) => { if (e.key === "Escape") onClose(); };
+    const handleKey = (e) => {
+      if (e.key === "Escape") onClose();
+    };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [onClose]);
@@ -166,56 +168,7 @@ export default function FeedClient({ campaigns }) {
   });
 
   return (
-    <>
-      {/* Header with blobs */}
-      <div style={{ position: "relative", overflow: "hidden", marginBottom: 32 }}>
-        <div
-          style={{
-            position: "absolute",
-            top: -40,
-            right: -60,
-            width: 350,
-            height: 250,
-            background: "#EC4899",
-            filter: "blur(80px)",
-            opacity: 0.25,
-            borderRadius: "50%",
-            pointerEvents: "none",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: -20,
-            right: 50,
-            width: 300,
-            height: 300,
-            background: "#c8f135",
-            filter: "blur(100px)",
-            opacity: 0.15,
-            borderRadius: "50%",
-            pointerEvents: "none",
-          }}
-        />
-        <div style={{ position: "relative", zIndex: 1, paddingBottom: 8 }}>
-          <h1
-            style={{
-              fontFamily: "var(--font-syne)",
-              fontWeight: 800,
-              fontSize: 30,
-              color: "#fff",
-              marginBottom: 4,
-            }}
-          >
-            Feed des offres
-          </h1>
-          <p style={{ fontSize: 14, color: "rgba(255,255,255,0.4)" }}>
-            {filtered.length} offre{filtered.length !== 1 ? "s" : ""} disponible
-            {filtered.length !== 1 ? "s" : ""} pour toi
-          </p>
-        </div>
-      </div>
-
+    <div style={{ padding: "0 32px 40px" }}>
       {/* Filters + search */}
       <div
         style={{
@@ -374,6 +327,6 @@ export default function FeedClient({ campaigns }) {
           onClose={() => setModalCampaign(null)}
         />
       )}
-    </>
+    </div>
   );
 }

@@ -358,3 +358,48 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ─── Feed header mesh ─────────────────────────────────────── */
+
+.feed-mesh-pink {
+  position: absolute;
+  top: -90px;
+  right: -60px;
+  width: 500px;
+  height: 380px;
+  background: radial-gradient(ellipse at 40% 40%, #EC4899 0%, transparent 68%);
+  opacity: 0.42;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: feedMesh1 48s ease-in-out infinite alternate;
+}
+
+.feed-mesh-lime {
+  position: absolute;
+  top: 0px;
+  right: 200px;
+  width: 340px;
+  height: 320px;
+  background: radial-gradient(ellipse at 60% 60%, #c8f135 0%, transparent 65%);
+  opacity: 0.28;
+  border-radius: 45% 55% 60% 40% / 50% 60% 40% 50%;
+  pointer-events: none;
+  animation: feedMesh2 62s ease-in-out infinite alternate;
+}
+
+@keyframes feedMesh1 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-25px, 18px) scale(1.06); }
+}
+
+@keyframes feedMesh2 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(18px, -22px) scale(0.94); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feed-mesh-pink,
+  .feed-mesh-lime {
+    animation: none;
+  }
+}
