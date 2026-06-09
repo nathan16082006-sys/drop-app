@@ -389,17 +389,23 @@ body {
 
 @keyframes feedMesh1 {
   from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(-25px, 18px) scale(1.06); }
+  to   { transform: translate(-20px, 15px) scale(1.05); }
 }
 
 @keyframes feedMesh2 {
   from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(18px, -22px) scale(0.94); }
+  to   { transform: translate(15px, -20px) scale(0.95); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .feed-mesh-pink,
   .feed-mesh-lime {
     animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [style*='feedMesh'] {
+    animation: none !important;
   }
 }

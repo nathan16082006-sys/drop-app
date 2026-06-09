@@ -168,7 +168,7 @@ export default function FeedClient({ campaigns }) {
   });
 
   return (
-    <div style={{ padding: "0 32px 40px" }}>
+    <div>
       {/* Filters + search */}
       <div
         style={{
