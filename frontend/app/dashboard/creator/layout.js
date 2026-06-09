@@ -62,6 +62,7 @@ export default async function CreatorLayout({ children }) {
             overflow: "visible",
           }}
         >
+          {/* Blob 1 — Rose top-right */}
           <div
             style={{
               position: "absolute",
@@ -69,14 +70,15 @@ export default async function CreatorLayout({ children }) {
               right: -80,
               width: 580,
               height: 460,
-              background:
-                "radial-gradient(ellipse at 45% 45%, #EC4899 0%, transparent 65%)",
+              background: "radial-gradient(ellipse at 45% 45%, #EC4899 0%, transparent 65%)",
               opacity: 0.32,
               borderRadius: "50%",
               filter: "blur(40px)",
               animation: "feedMesh1 50s ease-in-out infinite alternate",
+              pointerEvents: "none",
             }}
           />
+          {/* Blob 2 — Lime top-right accent */}
           <div
             style={{
               position: "absolute",
@@ -84,71 +86,73 @@ export default async function CreatorLayout({ children }) {
               right: 220,
               width: 380,
               height: 360,
-              background:
-                "radial-gradient(ellipse at 55% 55%, #c8f135 0%, transparent 62%)",
+              background: "radial-gradient(ellipse at 55% 55%, #c8f135 0%, transparent 62%)",
               opacity: 0.30,
               borderRadius: "42% 58% 55% 45% / 48% 52% 48% 52%",
               filter: "blur(50px)",
               animation: "feedMesh2 65s ease-in-out infinite alternate",
+              pointerEvents: "none",
             }}
           />
-          {/* Blob lime bas-droite */}
+          {/* Blob 3 — Lime top-left dominant */}
           <div
             style={{
               position: "absolute",
-              bottom: -80,
+              top: -110,
+              left: -80,
+              width: 560,
+              height: 440,
+              background: "radial-gradient(ellipse at 55% 45%, #c8f135 0%, transparent 65%)",
+              opacity: 0.26,
+              borderRadius: "50%",
+              filter: "blur(42px)",
+              animation: "feedMesh3 57s ease-in-out infinite alternate",
+              pointerEvents: "none",
+            }}
+          />
+          {/* Blob 4 — Rose top-left accent */}
+          <div
+            style={{
+              position: "absolute",
+              top: 70,
+              left: 190,
+              width: 360,
+              height: 340,
+              background: "radial-gradient(ellipse at 45% 55%, #EC4899 0%, transparent 62%)",
+              opacity: 0.21,
+              borderRadius: "58% 42% 45% 55% / 52% 48% 52% 48%",
+              filter: "blur(48px)",
+              animation: "feedMesh4 72s ease-in-out infinite alternate",
+              pointerEvents: "none",
+            }}
+          />
+          {/* Blob 5 — Lime bottom-right ambient */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: -60,
               right: -60,
-              width: 420,
-              height: 360,
-              background: "radial-gradient(ellipse at 50% 50%, #c8f135 0%, transparent 65%)",
-              opacity: 0.24,
-              borderRadius: "50%",
-              filter: "blur(55px)",
-              pointerEvents: "none",
-            }}
-          />
-          {/* Blob rose milieu-gauche */}
-          <div
-            style={{
-              position: "absolute",
-              top: "38%",
-              left: -100,
-              width: 320,
+              width: 440,
               height: 380,
-              background: "radial-gradient(ellipse at 50% 50%, #EC4899 0%, transparent 60%)",
-              opacity: 0.22,
-              borderRadius: "50%",
-              filter: "blur(50px)",
-              pointerEvents: "none",
-            }}
-          />
-          {/* Blob lime haut-centre */}
-          <div
-            style={{
-              position: "absolute",
-              top: -60,
-              left: "30%",
-              width: 260,
-              height: 220,
-              background: "radial-gradient(ellipse at 50% 50%, #c8f135 0%, transparent 62%)",
-              opacity: 0.20,
+              background: "radial-gradient(ellipse at 50% 50%, #c8f135 0%, transparent 63%)",
+              opacity: 0.17,
               borderRadius: "50%",
               filter: "blur(60px)",
               pointerEvents: "none",
             }}
           />
-          {/* Blob rose bas-gauche */}
+          {/* Blob 6 — Rose bottom-left ambient */}
           <div
             style={{
               position: "absolute",
-              bottom: "10%",
-              left: -60,
-              width: 280,
-              height: 300,
+              bottom: -40,
+              left: -40,
+              width: 400,
+              height: 360,
               background: "radial-gradient(ellipse at 50% 50%, #EC4899 0%, transparent 60%)",
-              opacity: 0.21,
+              opacity: 0.15,
               borderRadius: "50%",
-              filter: "blur(45px)",
+              filter: "blur(55px)",
               pointerEvents: "none",
             }}
           />
