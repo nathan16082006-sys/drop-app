@@ -14,6 +14,15 @@ const CATEGORY_GRADIENTS = {
   "Alimentaire": "linear-gradient(135deg, #f59e0b, #92400e)",
 };
 
+const CATEGORY_GLOW = {
+  "Beauté":      "#EC4899",
+  "Tech":        "#6c63ff",
+  "Mode":        "#c8f135",
+  "Sport":       "#f97316",
+  "Lifestyle":   "#06b6d4",
+  "Alimentaire": "#f59e0b",
+};
+
 const tagPill = {
   background: "rgba(255,255,255,0.06)",
   borderRadius: 20,
@@ -84,11 +93,16 @@ export default function CampaignCard({ campaign, onDetails, reducedMotion = fals
 
   const gradient =
     CATEGORY_GRADIENTS[campaign.category] ?? "linear-gradient(135deg, #2a2a2a, #141414)";
+  const glowColor = CATEGORY_GLOW[campaign.category] ?? "#ffffff";
   const initials = campaign.name.slice(0, 2).toUpperCase();
   const commissionBadge =
     campaign.commission_type === "fixed"
       ? `${campaign.commission_fixed}€ fixe`
       : `${campaign.commission_percent}%`;
+
+  const cardBoxShadow = !reducedMotion && hovered
+    ? `0 8px 32px rgba(0,0,0,0.4), 0 0 24px -4px ${glowColor}40`
+    : "0 0 0 0 transparent";
 
   return (
     <div
@@ -101,23 +115,25 @@ export default function CampaignCard({ campaign, onDetails, reducedMotion = fals
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
-        transition: reducedMotion ? "none" : "transform 200ms, box-shadow 200ms",
+        transition: reducedMotion ? "none" : "transform 200ms, box-shadow 300ms ease",
         transform: !reducedMotion && hovered ? "translateY(-3px)" : "translateY(0)",
-        boxShadow:
-          !reducedMotion && hovered ? "0 8px 32px rgba(0,0,0,0.4)" : "none",
+        boxShadow: cardBoxShadow,
       }}
     >
-      {/* Banner */}
+      {/* Banner — avatar + badge overlaid */}
       <div
         style={{
           height: 160,
           background: gradient,
+          position: "relative",
+          overflow: "hidden",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           flexShrink: 0,
         }}
       >
+        {/* Large background initials */}
         <span
           style={{
             fontFamily: "var(--font-syne)",
@@ -130,6 +146,54 @@ export default function CampaignCard({ campaign, onDetails, reducedMotion = fals
         >
           {initials}
         </span>
+
+        {/* Avatar — top left */}
+        <div
+          style={{
+            position: "absolute",
+            top: 12,
+            left: 12,
+            zIndex: 2,
+            width: 36,
+            height: 36,
+            borderRadius: "50%",
+            background: "rgba(0,0,0,0.45)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            border: "1px solid rgba(255,255,255,0.25)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 12,
+            fontWeight: 700,
+            color: "white",
+            fontFamily: "var(--font-syne)",
+          }}
+        >
+          {initials}
+        </div>
+
+        {/* Commission badge — top right */}
+        <div
+          style={{
+            position: "absolute",
+            top: 12,
+            right: 12,
+            zIndex: 2,
+            background: "rgba(0,0,0,0.45)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            border: "1px solid rgba(200,241,53,0.3)",
+            borderRadius: 8,
+            padding: "4px 10px",
+            fontSize: 12,
+            fontWeight: 700,
+            color: "#c8f135",
+            fontFamily: "var(--font-syne)",
+          }}
+        >
+          {commissionBadge}
+        </div>
       </div>
 
       {/* Content */}
@@ -142,45 +206,6 @@ export default function CampaignCard({ campaign, onDetails, reducedMotion = fals
           flex: 1,
         }}
       >
-        {/* Header row */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <div
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: 10,
-              backgroundColor: "#c8f13520",
-              color: "#c8f135",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 12,
-              fontWeight: 700,
-              flexShrink: 0,
-            }}
-          >
-            {initials}
-          </div>
-          <span
-            style={{
-              fontSize: 12,
-              fontWeight: 600,
-              color: "#c8f135",
-              backgroundColor: "#c8f13518",
-              borderRadius: 6,
-              padding: "3px 8px",
-            }}
-          >
-            {commissionBadge}
-          </span>
-        </div>
-
         {/* Title + category */}
         <div>
           <p
