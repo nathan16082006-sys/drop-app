@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { UserButton } from "@clerk/nextjs";
+import { LayoutDashboard, Wallet, User, ChevronRight } from "lucide-react";
 
 function OffersIcon() {
   return (
@@ -17,23 +17,6 @@ function CodesIcon() {
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" />
       <line x1="7" y1="7" x2="7.01" y2="7" />
-    </svg>
-  );
-}
-function WalletIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 12V7H5a2 2 0 010-4h14v4" />
-      <path d="M3 5v14a2 2 0 002 2h16v-5" />
-      <path d="M18 12a2 2 0 000 4h4v-4z" />
-    </svg>
-  );
-}
-function ProfileIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
     </svg>
   );
 }
@@ -64,31 +47,75 @@ function InvoicesIcon() {
 }
 
 const creatorNav = [
+  { href: "/dashboard/creator/dashboard", label: "Dashboard", icon: () => <LayoutDashboard size={18} /> },
   { href: "/dashboard/creator", label: "Offres", icon: OffersIcon, exact: true },
   { href: "/dashboard/creator/codes", label: "Mes codes", icon: CodesIcon },
-  { href: "/dashboard/creator/wallet", label: "Wallet", icon: WalletIcon },
-  { href: "/dashboard/creator/profile", label: "Profil", icon: ProfileIcon },
+  { href: "/dashboard/creator/wallet", label: "Wallet", icon: () => <Wallet size={18} /> },
+  { href: "/dashboard/creator/profile", label: "Profil", icon: () => <User size={18} /> },
 ];
 
 const brandNav = [
   { href: "/dashboard/brand", label: "Dashboard", icon: HomeIcon, exact: true },
   { href: "/dashboard/brand/campaign", label: "Campagnes", icon: CampaignIcon },
-{ href: "/dashboard/brand/invoices", label: "Factures", icon: InvoicesIcon },
+  { href: "/dashboard/brand/invoices", label: "Factures", icon: InvoicesIcon },
 ];
 
-export default function Sidebar({ role }) {
+function Sparkline() {
+  return (
+    <svg viewBox="0 0 200 36" preserveAspectRatio="none" style={{ width: "100%", height: 28, display: "block" }}>
+      <defs>
+        <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#EC4899" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#EC4899" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M0 28 C15 24 25 10 40 14 C55 18 65 30 80 26 C95 22 105 10 120 14 C135 18 145 28 160 24 C175 20 185 12 200 16 L200 36 L0 36 Z"
+        fill="url(#sparkFill)"
+      />
+      <path
+        d="M0 28 C15 24 25 10 40 14 C55 18 65 30 80 26 C95 22 105 10 120 14 C135 18 145 28 160 24 C175 20 185 12 200 16"
+        fill="none"
+        stroke="#EC4899"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.85"
+      />
+    </svg>
+  );
+}
+
+export default function Sidebar({ role, walletBalance = 0, userInfo = null }) {
   const pathname = usePathname();
   const nav = role === "creator" ? creatorNav : brandNav;
   const accent = role === "creator" ? "#c8f135" : "#6c63ff";
   const roleLabel = role === "creator" ? "Créateur" : "Marque";
 
+  const initials = userInfo
+    ? ((userInfo.firstName?.[0] ?? "") + (userInfo.lastName?.[0] ?? "")).toUpperCase() || "?"
+    : "?";
+  const displayName = userInfo
+    ? [userInfo.firstName, userInfo.lastName].filter(Boolean).join(" ") ||
+      userInfo.username ||
+      "Utilisateur"
+    : "Utilisateur";
+
   return (
     <aside
-      className="flex flex-col w-60 shrink-0 min-h-screen px-4 py-6 border-r"
-      style={{ backgroundColor: "#0d0d0f", borderColor: "rgba(255,255,255,0.06)" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: 240,
+        flexShrink: 0,
+        minHeight: "100vh",
+        padding: "24px 16px",
+        borderRight: "1px solid rgba(255,255,255,0.06)",
+        backgroundColor: "#0d0d0f",
+      }}
     >
       {/* Logo */}
-      <div className="flex items-center px-2 mb-8">
+      <div style={{ display: "flex", alignItems: "center", padding: "0 8px", marginBottom: 32 }}>
         <span style={{ fontFamily: "var(--font-syne)", fontWeight: 800, fontSize: "1.5rem", color: "#fff" }}>
           drop
         </span>
@@ -99,23 +126,51 @@ export default function Sidebar({ role }) {
 
       {/* Role chip */}
       <div
-        className="flex items-center gap-2 px-3 py-1.5 rounded-full mb-8 w-fit text-xs font-semibold"
-        style={{ backgroundColor: `${accent}18`, color: accent }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "6px 12px",
+          borderRadius: 999,
+          marginBottom: 32,
+          width: "fit-content",
+          backgroundColor: `${accent}18`,
+          color: accent,
+          fontSize: 12,
+          fontWeight: 600,
+        }}
       >
-        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accent }} />
+        <span
+          style={{
+            width: 6,
+            height: 6,
+            borderRadius: "50%",
+            backgroundColor: accent,
+            display: "inline-block",
+            flexShrink: 0,
+          }}
+        />
         {roleLabel}
       </div>
 
       {/* Nav */}
-      <nav className="flex flex-col gap-1 flex-1">
+      <nav style={{ display: "flex", flexDirection: "column", gap: 4, flex: 1 }}>
         {nav.map(({ href, label, icon: Icon, exact }) => {
           const isActive = exact ? pathname === href : pathname.startsWith(href);
           return (
             <Link
               key={href}
               href={href}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors"
               style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                padding: "10px 12px",
+                borderRadius: 12,
+                fontSize: 14,
+                fontWeight: 500,
+                textDecoration: "none",
+                transition: "background-color 150ms, color 150ms",
                 backgroundColor: isActive ? `${accent}14` : "transparent",
                 color: isActive ? accent : "rgba(255,255,255,0.5)",
               }}
@@ -127,15 +182,129 @@ export default function Sidebar({ role }) {
         })}
       </nav>
 
-      {/* User */}
+      {/* Wallet widget — creator only */}
+      {role === "creator" && (
+        <div
+          style={{
+            backgroundColor: "#141414",
+            border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: 12,
+            padding: "14px",
+            marginBottom: 12,
+          }}
+        >
+          <p
+            style={{
+              fontSize: 11,
+              color: "rgba(255,255,255,0.4)",
+              fontWeight: 500,
+              marginBottom: 6,
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+            }}
+          >
+            Ce mois-ci
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-syne)",
+              fontWeight: 800,
+              color: "#fff",
+              fontSize: 22,
+              marginBottom: 8,
+              lineHeight: 1,
+            }}
+          >
+            {parseFloat(walletBalance).toFixed(2)} €
+          </p>
+          <Sparkline />
+          <Link
+            href="/dashboard/creator/wallet"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 3,
+              marginTop: 10,
+              fontSize: 12,
+              color: "rgba(255,255,255,0.45)",
+              textDecoration: "none",
+            }}
+          >
+            Voir mes stats
+            <ChevronRight size={13} />
+          </Link>
+        </div>
+      )}
+
+      {/* User info */}
       <div
-        className="flex items-center gap-3 px-3 py-3 rounded-xl border"
-        style={{ borderColor: "rgba(255,255,255,0.06)" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          padding: "14px 8px 4px",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+        }}
       >
-        <UserButton appearance={{ elements: { avatarBox: "w-8 h-8" } }} />
-        <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
-          Mon compte
-        </span>
+        {userInfo?.imageUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={userInfo.imageUrl}
+            alt={displayName}
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: "50%",
+              objectFit: "cover",
+              flexShrink: 0,
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: "50%",
+              backgroundColor: "#c8f13520",
+              color: "#c8f135",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 12,
+              fontWeight: 700,
+              flexShrink: 0,
+            }}
+          >
+            {initials}
+          </div>
+        )}
+        <div style={{ overflow: "hidden", flex: 1 }}>
+          <p
+            style={{
+              fontSize: 13,
+              fontWeight: 600,
+              color: "#fff",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {displayName}
+          </p>
+          {userInfo?.username && (
+            <p
+              style={{
+                fontSize: 12,
+                color: "rgba(255,255,255,0.4)",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              @{userInfo.username}
+            </p>
+          )}
+        </div>
       </div>
     </aside>
   );
